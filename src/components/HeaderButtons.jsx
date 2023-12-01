@@ -1,9 +1,9 @@
-import { useState } from "react"
+
 import { HeaderButton, HeaderButtonContainer } from "../styles.css/styles"
 
 export const HeaderButtons = ({selectedButtonId}) => {
     const handleButtonClick = (buttonId) => {
-         // redirecionar para  rota
+         console.log(buttonId)
       };
     return (
         <HeaderButtonContainer>
