@@ -53,3 +53,10 @@ export const OrderContainer = styled.div`
     }
 
 `
+
+export const OrderUsernameContent = styled.div`
+  color: ${(props)=>props.finished? "green" : "gray"};
+  margin-top: 20px;
+  font-size:70px;
+  font-weight:bold;
+`
