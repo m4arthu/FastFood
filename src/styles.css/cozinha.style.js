@@ -13,7 +13,7 @@ export const  CozinhaContent = styled.div`
    width:80vw;
    height: 100%;
    display:flex;
-   justify-content:space-between;
+   justify-content:space-around;
    h1{
        font-size:35px;
        font-weight:bold;
