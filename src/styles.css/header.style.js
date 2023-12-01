@@ -34,6 +34,7 @@ export const LogoContainer = styled.div`
 export const HeaderButtonContainer = styled.div`
     display:flex;
     align-items: center;
+    margin-right:30px;
 `
 export const  HeaderButton = styled.div`
      background-color : ${(props)=> props.selected? "#00000059": "inherit" };
