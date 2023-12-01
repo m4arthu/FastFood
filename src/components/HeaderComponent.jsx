@@ -1,10 +1,13 @@
 import { HeaderContainer } from "../styles.css/styles";
+import { HeaderButtons } from "./HeaderButtons";
+import { LogoComponent } from "./LogoComponent";
 
-export function HeaderComponent(){
+export function HeaderComponent({selectedButtonId}){
     return (
        <>
        <HeaderContainer>
-        dawdwda
+         <LogoComponent/>
+         <HeaderButtons selectedButtonId={selectedButtonId}/>
        </HeaderContainer>
        </>
     )
