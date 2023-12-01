@@ -1,10 +1,18 @@
 
-import { HeaderButton, HeaderButtonContainer } from "../styles.css/styles"
-
-export const HeaderButtons = ({selectedButtonId}) => {
+import { HeaderButton, HeaderButtonContainer } from "../styles.css/header.style.js"
+import { useNavigate } from"react-router-dom"
+export const HeaderButtons = ({ selectedButtonId }) => {
+    const navigate = useNavigate()
     const handleButtonClick = (buttonId) => {
-         console.log(buttonId)
-      };
+        switch (buttonId) {
+            case 1:
+                return navigate("/Pedidos")
+            case 2:
+             return navigate("/cozinha")
+            case 3:
+                return navigate("/Retirada")
+        }
+    };
     return (
         <HeaderButtonContainer>
             <HeaderButton selected={selectedButtonId === 1 ? true : false}

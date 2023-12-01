@@ -1,5 +1,5 @@
 import hamburguer  from "../assets/images.png"
-import { LogoContainer } from "../styles.css/styles"
+import { LogoContainer } from "../styles.css/header.style"
 
 export const  LogoComponent =() => {
     return (
