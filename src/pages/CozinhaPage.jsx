@@ -1,7 +1,6 @@
 import { OrderComponent } from "../components/OrderComponent.jsx"
 import { CozinhaContainer, CozinhaContent } from "../styles.css/cozinha.style.js"
 import { HeaderComponent } from "../components/HeaderComponent.jsx"
-import { OrderUsernameContent } from "../styles.css/order.style.js"
 import { OrderUsername } from "../components/orderUsername.jsx"
 export function CozinhaPage({ onlyNames,headerNumber }) {
     if (!onlyNames) {
