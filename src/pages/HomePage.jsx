@@ -4,7 +4,7 @@ import { Container } from "../styles.css/styles.js"
 export function HomePage() {
     return (
         <Container>
-            <HeaderComponent />
+            <HeaderComponent selectedButtonId={1}/>
             
         </Container>
     )
