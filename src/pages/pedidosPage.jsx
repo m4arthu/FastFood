@@ -80,6 +80,7 @@ export const PedidosPage = () => {
 
 const ProductView = ({ data, setModalShow, selected }) => {
     const productDetails = data
+    productDetails
     return (
         <Product onClick={() => setModalShow(true)} selected={selected} bgColor="red">
             <img className="overlay" src={fundo} />
