@@ -3,9 +3,7 @@ import { faX, faCheck} from '@fortawesome/free-solid-svg-icons';
 import { OrderContainer } from "../styles.css/order.style"
 import hamburguer from "../assets/images (10).png"
 import { updateOrder } from "../services/orders.service";
-import { useNavigate } from "react-router-dom";
 export const OrderComponent = ({ selected,data }) => {
-    const navigate = useNavigate()
     const  finishOrder = async() => {
          await updateOrder({
             orderId:data.id,
