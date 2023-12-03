@@ -73,17 +73,17 @@ export const PedidosPage = () => {
                         <div className="products">
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "red").map((product) => {
-                                    return <ProductView color={product.bgColor} functions={{setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView key={product.id} color={product.bgColor} functions={{setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "green").map((product) => {
-                                    return <ProductView color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView key={product.id} color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "yellow").map((product) => {
-                                    return <ProductView color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView key={product.id} color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                         </div>

@@ -19,7 +19,7 @@ export const SubtotalComponent = ({ allOrders, width, name, quantity, price }) =
                 <div className="content">
                      {order.map((order)=>{
                         console.log(order)
-                        return <div className="pedido">
+                        return <div key={order.price} className="pedido">
                         <h1>{order.quantity}x  {order.name}</h1>
                         <h1>R$ {order.price}</h1>
                     </div>
