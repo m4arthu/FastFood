@@ -11,3 +11,9 @@ export const  postOrder =async (data) => {
         return response.data
     }).catch((e)=>{console.log(e)})
 }
+
+export  const updateOrder = async (data) => {
+    return api.put("/orders",data).then((response)=>{
+        return response.data
+    }).catch((e)=>{console.log(e)})
+}
