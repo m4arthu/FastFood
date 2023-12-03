@@ -17,6 +17,9 @@ export const OrderContainer = styled.div`
     }
     .img{
         .img-content{
+            img{
+                width:30px;
+            }
             width:30px;
             height:30px;
             padding:10px;

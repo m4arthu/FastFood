@@ -54,7 +54,7 @@ export const  PedidoSection = styled.div`
         flex-direction: column;
         gap:30px;
         .productsContent{
-            display:flex
+            display:flex;
             gap:20px;
         }
     }
@@ -62,8 +62,8 @@ export const  PedidoSection = styled.div`
 
 export const Category = styled.div`
     margin-top:30px;
-    margin-right:30px;
-    width:${({width})=>width?width:"250px"};
+    margin-right:35px;
+    width:${({width})=>width?width:"215px"};
     height:${({height})=>height?height:"150px"};
     box-shadow: 0px 0px 18px  6px #10010010;
     border-radius: 12px;
@@ -80,6 +80,7 @@ export const Category = styled.div`
     }
     h1{
         position:absolute;
+         font-size:17px;
         bottom:10px;
     }
 
@@ -87,8 +88,8 @@ export const Category = styled.div`
 
 export const  Product = styled.div`
     box-shadow: 0px 0px 18px  6px #10010010;
-    width:${({width})=>width?width:"250px"};
-    height:${({height})=>height?height:"300px"};
+    width:${({width})=>width?width:"200px"};
+    height:${({height})=>height?height:"220px"};
     position:relative;
     margin-bottom:30px;
     border-radius: 15px;
@@ -122,12 +123,18 @@ export const  Product = styled.div`
         flex-direction: column;
         align-items: center;
         h1{
+            font-size:16px;
             z-index:4;
-            bottom:40px;
+            bottom:60px;
             position:absolute;
         }
+        h2{
+            position:absolute;
+            bottom:10px;
+        }
         p{
-            bottom:-10px;
+            font-size:12px;
+            bottom:20px;
             position:absolute;
         }
         img{

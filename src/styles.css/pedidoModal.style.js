@@ -123,6 +123,7 @@ export const ModalContentBody = styled.div`
     }
     .subtotal{
         width:${({width})=>width?width:"100%"};
+        overflow:scroll;
         height:200px;
         margin:auto;
         margin-bottom:30px;
