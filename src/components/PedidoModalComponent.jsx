@@ -28,9 +28,9 @@ export const PedidoModal = ({show, productId,setShow,name,description,price}) =>
     const postOrder =() => {
         const neworder = {
             name:name,
-            productId: productId,
+            product_id: productId,
             quantity: quantity,
-            description: Description.current.value,
+            description: Description.current.value === "" ? "...":Description.current.value,
             price: quantity * price /100
         }
         setOrder([...order,neworder])

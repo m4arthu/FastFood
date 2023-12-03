@@ -17,6 +17,7 @@ import { useContext, useEffect, useState } from "react"
 import { SubtotalComponent } from "../components/SubtotalCompoent.jsx"
 import { getProducts } from "../services/products.service.js"
 import {OrderContext} from "../contenxts/orderContenxt.jsx"
+import { useNavigate } from "react-router-dom"
 export const PedidosPage = () => {
     const [modalShow, setModalShow] = useState(false)
     const [products, setProducts] = useState([]);
@@ -24,7 +25,14 @@ export const PedidosPage = () => {
     const [selectedDescription, setSelectedDescription] = useState()
     const [selectedPrice, setSelectedPrice] = useState()
     const [selectedProductId, setSelectedProductId] = useState()
-    const {order} = useContext(OrderContext)
+    const {order,setOrder} = useContext(OrderContext)
+    const navigate = useNavigate()
+    const cancel = () => {
+        setOrder([])
+    }
+    const finishPedido = () => {
+        navigate("/payment")
+    }
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -73,17 +81,17 @@ export const PedidosPage = () => {
                         <div className="products">
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "red").map((product) => {
-                                    return <ProductView key={product.id} color={product.bgColor} functions={{setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "green").map((product) => {
-                                    return <ProductView key={product.id} color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
                                 {products.filter((product) => product.bgColor === "yellow").map((product) => {
-                                    return <ProductView key={product.id} color={product.bgColor} functions={{ setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                         </div>
@@ -91,10 +99,10 @@ export const PedidosPage = () => {
                     {order.length > 0?<SubtotalComponent allOrders={true} width={"80%"} />:""}
                 </PedidoContent>
             </PedidosContainer>
-            <PedidosFooter>
+            <PedidosFooter abble={order.length > 0? true: false}>
                 <div>
-                    <button className="cancel">Cancelar</button>
-                    <button className="finish">Finalizar Pedido</button>
+                    <button onClick={()=>cancel()} disabled={order.length > 0? false: true} className="cancel">Cancelar</button>
+                    <button onClick={()=>finishPedido()} disabled={order.length > 0? false: true} className="finish">Finalizar Pedido</button>
                 </div>
             </PedidosFooter>
             <PedidoModal productId={selectedProductId} description={selectedDescription} name={selectedName} price={selectedPrice} show={modalShow} setShow={setModalShow} />

@@ -3,7 +3,7 @@ import { useContext } from "react"
 import { ModalContentBody } from "../styles.css/pedidoModal.style"
 import { OrderContext } from "../contenxts/orderContenxt"
 
-export const SubtotalComponent = ({ allOrders, width, name, quantity, price }) => {
+export const SubtotalComponent = ({ totalInLine,allOrders, width, name, quantity, price }) => {
     const  {order} = useContext(OrderContext)
     const getTotal = () => {
         let total = 0
@@ -14,7 +14,7 @@ export const SubtotalComponent = ({ allOrders, width, name, quantity, price }) =
     }
     if(allOrders){
         return(
-            <ModalContentBody width={width}>
+            <ModalContentBody totalInLine={true} width={width}>
             <div className="subtotal">
                 <div className="content">
                      {order.map((order)=>{
@@ -26,7 +26,7 @@ export const SubtotalComponent = ({ allOrders, width, name, quantity, price }) =
                      })}
                     <div className="total">
                         <p>Total do pedido: </p>
-                        <h1>{getTotal()}</h1>
+                        <h1>R$ {getTotal().toFixed(2)}</h1>
                     </div>
                 </div>
             </div>
