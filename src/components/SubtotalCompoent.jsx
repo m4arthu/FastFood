@@ -14,7 +14,7 @@ export const SubtotalComponent = ({ totalInLine,allOrders, width, name, quantity
     }
     if(allOrders){
         return(
-            <ModalContentBody totalInLine={true} width={width}>
+            <ModalContentBody totalInLine={totalInLine} width={width}>
             <div className="subtotal">
                 <div className="content">
                      {order.map((order)=>{

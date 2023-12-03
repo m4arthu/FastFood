@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { PedidosFooter } from "../styles.css/pedido.style"
 
 export const PaymentPage = () => {
-    const { order,setOrder } = useContext(OrderContext);
+    const { order, setOrder } = useContext(OrderContext);
 
     // Utilize useState para o campo de username
     const [username, setUsername] = useState('');
@@ -21,14 +21,16 @@ export const PaymentPage = () => {
         navigate('/pedidos');
     };
 
-    const sendOrder = async() => {
+    const sendOrder = async () => {
         const newOrders = order.map(order => {
-            const { name, price, ...rest } = order;
+            const rest = order;
+            delete rest.name;
+            delete rest.price;
             return rest;
-          });
-        if(username.length > 12){
+        });
+        if (username.length > 12) {
             alert("username precisa ser menor do  que 12 caracteres")
-            return 
+            return
         }
         const orderData = {
             username: username,
@@ -36,7 +38,7 @@ export const PaymentPage = () => {
         }
         await postOrder(orderData);
         navigate("/pedidos"),
-        setOrder([])
+            setOrder([])
     };
 
     const PaymentType = ({ icon, name }) => {
