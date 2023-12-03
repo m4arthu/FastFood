@@ -52,7 +52,13 @@ export const PaymentContent = styled.div`
                         width:250px;
                     }
                      .cod{
-                        width:100px;
+                        margin-top:10px;
+                         border:none;
+                        background-color:#e9e9e9;
+                        height:10px;
+                         border-radius:2px;
+                        width:80px;
+                        padding:10px;
                      }
                 }
 

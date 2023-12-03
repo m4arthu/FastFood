@@ -16,16 +16,18 @@ import { PedidoModal } from "../components/PedidoModalComponent.jsx"
 import { useContext, useEffect, useState } from "react"
 import { SubtotalComponent } from "../components/SubtotalCompoent.jsx"
 import { getProducts } from "../services/products.service.js"
-import {OrderContext} from "../contenxts/orderContenxt.jsx"
+import { OrderContext } from "../contenxts/orderContenxt.jsx"
 import { useNavigate } from "react-router-dom"
 export const PedidosPage = () => {
     const [modalShow, setModalShow] = useState(false)
     const [products, setProducts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredList, setFilteredList] = useState([]);
     const [selectedName, setSelectedName] = useState()
     const [selectedDescription, setSelectedDescription] = useState()
     const [selectedPrice, setSelectedPrice] = useState()
     const [selectedProductId, setSelectedProductId] = useState()
-    const {order,setOrder} = useContext(OrderContext)
+    const { order, setOrder } = useContext(OrderContext)
     const navigate = useNavigate()
     const cancel = () => {
         setOrder([])
@@ -33,11 +35,20 @@ export const PedidosPage = () => {
     const finishPedido = () => {
         navigate("/payment")
     }
+
+    const handleSearch = () => {
+        const filtered = products.filter(item =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredList(filtered);
+    };
+
     useEffect(() => {
         const fetchProducts = async () => {
             try {
                 const productsData = await getProducts();
                 setProducts(productsData)
+                setFilteredList(productsData)
             } catch (error) {
                 alert('Erro ao buscar produtos:', error);
             }
@@ -49,9 +60,9 @@ export const PedidosPage = () => {
             <HeaderComponent selectedButtonId={1} />
             <PedidosContainer>
                 <PedidoContent>
-                    <PedidoContentHeader>
+                    <PedidoContentHeader tabIndex={0} onKeyDown={handleSearch}>
                         <h1>Seja bem vindo!</h1>
-                        <input placeholder="O que você procura?" type="serarch" />
+                        <input onChange={(e) => setSearchTerm(e.target.value)} placeholder="O que você procura?" type="serarch" />
                     </PedidoContentHeader>
                     <PedidoSection >
                         <h1>Categorias</h1>
@@ -80,29 +91,29 @@ export const PedidosPage = () => {
                         <p>Selecione um  produto para adicionar ao  seu  carinho</p>
                         <div className="products">
                             <div className="productsContent">
-                                {products.filter((product) => product.bgColor === "red").map((product) => {
-                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                {filteredList.filter((product) => product.bgColor === "red").map((product) => {
+                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
-                                {products.filter((product) => product.bgColor === "green").map((product) => {
-                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                {filteredList.filter((product) => product.bgColor === "green").map((product) => {
+                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                             <div className="productsContent">
-                                {products.filter((product) => product.bgColor === "yellow").map((product) => {
-                                    return <ProductView selected={order.some(order=>order.product_id === product.id)?true:false} key={product.id} color={product.bgColor} functions={{setSelectedProductId,setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                {filteredList.filter((product) => product.bgColor === "yellow").map((product) => {
+                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
                                 })}
                             </div>
                         </div>
                     </PedidoSection>
-                    {order.length > 0?<SubtotalComponent allOrders={true} width={"80%"} />:""}
+                    {order.length > 0 ? <SubtotalComponent allOrders={true} width={"80%"} /> : ""}
                 </PedidoContent>
             </PedidosContainer>
-            <PedidosFooter abble={order.length > 0? true: false}>
+            <PedidosFooter abble={order.length > 0 ? true : false}>
                 <div>
-                    <button onClick={()=>cancel()} disabled={order.length > 0? false: true} className="cancel">Cancelar</button>
-                    <button onClick={()=>finishPedido()} disabled={order.length > 0? false: true} className="finish">Finalizar Pedido</button>
+                    <button onClick={() => cancel()} disabled={order.length > 0 ? false : true} className="cancel">Cancelar</button>
+                    <button onClick={() => finishPedido()} disabled={order.length > 0 ? false : true} className="finish">Finalizar Pedido</button>
                 </div>
             </PedidosFooter>
             <PedidoModal productId={selectedProductId} description={selectedDescription} name={selectedName} price={selectedPrice} show={modalShow} setShow={setModalShow} />

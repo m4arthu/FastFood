@@ -3,24 +3,20 @@ import { HeaderComponent } from "../components/HeaderComponent"
 import { PaymentContainer, PaymentContent, PaymentTypeContainer } from "../styles.css/payment.style"
 import { faCreditCard, faMoneyBill, faWallet } from "@fortawesome/free-solid-svg-icons"
 import { SubtotalComponent } from "../components/SubtotalCompoent"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { OrderContext } from "../contenxts/orderContenxt"
-import { postOrder } from "../services/orders.service"
+import { getOrders, postOrder } from "../services/orders.service"
 import { useNavigate } from "react-router-dom"
 import { PedidosFooter } from "../styles.css/pedido.style"
 
 export const PaymentPage = () => {
     const { order, setOrder } = useContext(OrderContext);
-
-    // Utilize useState para o campo de username
     const [username, setUsername] = useState('');
-
     const navigate = useNavigate();
-
+    const [orderId,setOrderId] = useState();
     const cancel = () => {
         navigate('/pedidos');
     };
-
     const sendOrder = async () => {
         const newOrders = order.map(order => {
             const rest = order;
@@ -55,6 +51,27 @@ export const PaymentPage = () => {
         );
     };
 
+    useEffect(()=>{
+        const fetchOrders = async () => {
+            try {
+                const ordersData = await getOrders();
+                const encontrarUltimoID = () => {
+                    if (ordersData.length === 0) {
+                      return null;
+                    } 
+                    const ultimoID = ordersData.reduce((maxID, order) => {
+                      return order.id > maxID ? order.id : maxID;
+                    }, ordersData[0].id);
+                    return ultimoID;
+                  };
+                setOrderId(encontrarUltimoID())
+            } catch (error) {
+                alert('Erro ao buscar produtos:', error);
+            }
+        };
+        fetchOrders()
+    },[])
+
     return (
         <>
             <HeaderComponent selectedButtonId={1} />
@@ -82,7 +99,7 @@ export const PaymentPage = () => {
                                 </div>
                                 <div className="section">
                                     <h2>Codigo</h2>
-                                    <input className="cod" type="text" />
+                                    <div className="cod" type="text">{orderId}</div>
                                 </div>
                             </div>
                         </div>
