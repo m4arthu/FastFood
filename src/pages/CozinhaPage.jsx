@@ -27,14 +27,14 @@ export function CozinhaPage({ onlyNames,headerNumber }) {
                         <div className="orders">
                             <h1>Preparando:</h1>
                             {orders? orders.filter(order => order.isFinished === false).map(order =>{
-                                return <OrderComponent key={order.id} data={order} />
+                                return <OrderComponent orderId={order.id}  key={order.id} data={order} />
                             }):""}
                         </div>
                         <div className="division"></div>
                         <div className="orders">
                             <h1>Pronto:</h1>
                             {orders? orders.filter(order => order.isFinished === true).map(order =>{
-                                return <OrderComponent key={order.id} selected={true} data={order} />
+                                return <OrderComponent   key={order.id} selected={true} data={order} />
                             }):""}
                         </div>
                     </CozinhaContent>
@@ -50,14 +50,14 @@ export function CozinhaPage({ onlyNames,headerNumber }) {
                         <div className="orders">
                             <h1>Preparando:</h1>
                             {orders? orders.filter(order => order.isFinished === false).map(order =>{
-                                return <OrderUsername key={order.id} name={order.username} />
+                                return <OrderUsername   key={order.id} name={order.username} />
                             }):""}
                         </div>
                         <div className="division"></div>
                         <div className="orders">
                             <h1>Pronto:</h1>
                             {orders? orders.filter(order => order.isFinished === true).map(order =>{
-                                return <OrderUsername key={order.id} finished={true} name={order.username} />
+                                return <OrderUsername key={order.id}  finished={true} name={order.username} />
                             }):""}
                         </div>
                     </CozinhaContent>

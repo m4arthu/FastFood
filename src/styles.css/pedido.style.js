@@ -96,10 +96,10 @@ export const  Product = styled.div`
     background-color:${({bgColor})=> bgColor? bgColor:"inherit"};
     .selected{
         position:relative;
-        bottom:200px;
+        bottom:160px;
         display:${({selected})=>selected?"flex":"none"};
         background-color:#14883A99;
-        width:250px;
+        width:100%;
         height:100%;
         z-index:6;
         font-size:60px;

@@ -65,9 +65,13 @@ export const PaymentContent = styled.div`
                 }
             }
         }
+        .footer{
+          margin-top:30px;
+          margin-left:30px;
+        }
 `
 
-export const  PaymentTypeContainer = styled.div`
+export const PaymentTypeContainer = styled.div`
     width:100%;
     height:50px;
     border: 1px solid gray;
@@ -83,6 +87,10 @@ export const  PaymentTypeContainer = styled.div`
         width:80%;
     }
     .method{
+        h1{
+            margin-left:10px;
+            font-weight:bold;
+        }
         display:flex;
         
     }    

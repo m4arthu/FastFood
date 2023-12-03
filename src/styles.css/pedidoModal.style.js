@@ -148,9 +148,11 @@ export const ModalContentBody = styled.div`
             margin-top:70px;
             width:100%;
             border-top: 2px dashed gray;
+            display:${({totalInLine})=>totalInLine?"flex":"block"};
             h1{
                 font-size:26px;
                 margin-top:10px;
+                margin:${({totalInLine})=>totalInLine?"15px 0 0 80px":"0"};
             }
             p{
                 font-size:15px;
