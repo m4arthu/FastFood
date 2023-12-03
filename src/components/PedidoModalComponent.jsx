@@ -10,7 +10,7 @@ import {
 } from "../styles.css/pedidoModal.style"
 import { PedidosFooter } from "../styles.css/pedido.style"
 import { faX } from "@fortawesome/free-solid-svg-icons"
-import { useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { Category, Product } from "../styles.css/pedido.style"
 import hamburguer from "../assets/images (10).png"
 import fundo from "../assets/fundi-lanche.svg"
@@ -18,11 +18,24 @@ import bacon from "../assets/bacon.avif"
 import chedar from "../assets/chedar.jpeg"
 import molho from "../assets/molho.jpeg"
 import { SubtotalComponent } from "./SubtotalCompoent"
+import { OrderContext } from "../contenxts/orderContenxt"
 
 
-export const PedidoModal = ({ show, setShow }) => {
+export const PedidoModal = ({show, productId,setShow,name,description,price}) => {
     const [quantity, setQuantity] = useState(1);
-
+    const {order,setOrder} = useContext(OrderContext)
+    const Description = useRef(null)
+    const postOrder =() => {
+        const neworder = {
+            name:name,
+            productId: productId,
+            quantity: quantity,
+            description: Description.current.value,
+            price: quantity * price /100
+        }
+        setOrder([...order,neworder])
+        console.log(order)
+    }
 
     const Adicional = ({ data }) => {
         return (
@@ -45,7 +58,7 @@ export const PedidoModal = ({ show, setShow }) => {
     }
 
 
-    const QuantitySelector = ({ quantity, setQuantity }) => {
+    const QuantitySelector = ({quantity, setQuantity }) => {
 
         const decreaseQuantity = () => {
             if (quantity > 1) {
@@ -70,7 +83,7 @@ export const PedidoModal = ({ show, setShow }) => {
 
     return (
         <>
-            <ModalContainer show={show}>
+          <ModalContainer show={show}>
                 <ModalContentContainer>
                     <div className="content">
                         <ModalContentHeader>
@@ -87,12 +100,12 @@ export const PedidoModal = ({ show, setShow }) => {
                                         </div>
                                     </Product>
                                     <div className="details">
-                                        <h1>nome do  pedido</h1>
-                                        <p>descrição do pedido</p>
+                                        <h1>{name}</h1>
+                                        <p>{description}</p>
                                         <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
                                     </div>
                                 </div>
-                                <div className="price">R$33,33</div>
+                                <div className="price">R${price /100}</div>
                             </PedidoDetails>
                         </ModalContentHeader>
                         <ModalContentBody>
@@ -102,15 +115,19 @@ export const PedidoModal = ({ show, setShow }) => {
                             <Adicional data={{ img: chedar, nome: "chedar", description: "10g" }} />
                             <Adicional data={{ img: molho, nome: "molho", description: "10g" }} />
                             <h1>Observaçôes</h1>
-                            <textarea name="observações" placeholder="Adicione uma  obsercação  ao pedido" cols="30" rows="10"></textarea>
-                            <SubtotalComponent/>
+                            <textarea ref={Description} name="observações" placeholder="Adicione uma  obsercação  ao pedido" cols="30" rows="10"></textarea>
+                           <SubtotalComponent price={price}  name={name} quantity={quantity}/>
                         </ModalContentBody>
                         <PedidosFooter abble={true} className="footer">
                             <div>
                                 <button onClick={() => {
+                                    postOrder()
                                     setShow(false)
                                 }} className="cancel">Continuar adicionando</button>
-                                <button className="finish">Adicionar ao  pedido</button>
+                                <button onClick={() => {
+                                    postOrder()
+                                    setShow(false)
+                                }} className="finish">Adicionar ao  pedido</button>
                             </div>
                         </PedidosFooter>
                     </div>
