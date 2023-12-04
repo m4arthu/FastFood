@@ -7,8 +7,8 @@ Bem-vindo ao FastFood App, uma aplicação web moderna e eficiente para gerencia
  - axios // http-client
  - styled-component //  biblioteca de estilização
 
-# funcionalidades
-
+# Deploy
+   https://fast-food-lovat.vercel.app
 
  # Paginas 
  - [pedidos](https://fast-food-lovat.vercel.app/)
