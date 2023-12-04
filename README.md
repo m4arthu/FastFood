@@ -10,6 +10,8 @@ Bem-vindo ao FastFood App, uma aplicação web moderna e eficiente para gerencia
 # Deploy
    https://fast-food-lovat.vercel.app
 
+   ps:  a api  entra em  stand-by então pode demorar para aparecer os produtos na primeira vez de acesso
+
  # Paginas 
  - [pedidos](https://fast-food-lovat.vercel.app/)
  ![image](https://github.com/m4arthu/FastFood/assets/102080715/1913a2b9-354e-4297-b476-c38c5f8be618)
