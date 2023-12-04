@@ -1,7 +1,7 @@
 import { OrderComponent } from "../components/OrderComponent.jsx"
 import { CozinhaContainer, CozinhaContent } from "../styles.css/cozinha.style.js"
 import { HeaderComponent } from "../components/HeaderComponent.jsx"
-import { OrderUsername } from "../components/orderUsername.jsx"
+import { OrderUsername } from "../components/OrderUsername.jsx"
 import { useEffect, useState } from "react"
 import { getOrders } from "../services/orders.service.js"
 export function CozinhaPage({ onlyNames,headerNumber }) {
