@@ -3,7 +3,7 @@ import { HeaderComponent } from "../components/HeaderComponent"
 import { PaymentContainer, PaymentContent, PaymentTypeContainer } from "../styles.css/payment.style"
 import { faCreditCard, faMoneyBill, faWallet } from "@fortawesome/free-solid-svg-icons"
 import { SubtotalComponent } from "../components/SubtotalCompoent"
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useDebugValue, useEffect, useRef, useState } from "react"
 import { OrderContext } from "../contenxts/orderContenxt"
 import { getOrders, postOrder } from "../services/orders.service"
 import { useNavigate } from "react-router-dom"
@@ -15,6 +15,19 @@ export const PaymentPage = () => {
     const navigate = useNavigate();
     const [orderId, setOrderId] = useState();
     const componentRef = useRef();
+    const [troco,setTroco] = useState()
+    const valorPago = useRef(null)
+    const getTotal = () => {
+        let total = 0
+        order.map((order) => {
+            total += order.price
+        })
+        return total
+    }
+    const calculaTroco = () => {
+        setTroco(Number(valorPago.current.value) - getTotal())
+        return 
+    }
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
     });
@@ -38,7 +51,7 @@ export const PaymentPage = () => {
         }
         await postOrder(orderData);
         navigate("/"),
-            handlePrint()
+         handlePrint()
         setOrder([])
     };
 
@@ -93,7 +106,6 @@ export const PaymentPage = () => {
                             <div className="username">
                                 <div className="section">
                                     <h2>Nome do cliente</h2>
-                                    {/* Utilize o estado do username no input */}
                                     <input
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
@@ -116,11 +128,11 @@ export const PaymentPage = () => {
                             <div className="details">
                                 <div className="section">
                                     <h2>Valor entregue</h2>
-                                    <input className="pagamento" placeholder="....quantia" type="text" />
+                                    <input className="pagamento" ref={valorPago} onChange={()=>calculaTroco()} placeholder="....quantia" type="number" />
                                 </div>
                                 <div className="section">
                                     <h2>troco</h2>
-                                    <input className="troco" type="text" />
+                                    <input disabled={true} className="troco" type="text" placeholder={troco}/>
                                 </div>
                             </div>
                         </div>
