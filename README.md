@@ -46,6 +46,12 @@ Bem-vindo ao FastFood App, uma aplicação web moderna e eficiente para gerencia
   ```````powershell
    npm i 
   ```````
+   - crie  um  arquivo  .env da pasta raiz com  a variavel:
+     ``````powershell
+      VITE_API_URL = url da sua api 
+     ``````
+     ps: você pode usar tanto  a  url  da api dedployada como  a que estiver rodando  localmente na sua maquina
+     Pegue a api  aqui: [API_REPO](https://github.com/m4arthu/FastFoodApi)
   - depois suba o app com:
    ```````powershell
     npm run dev
