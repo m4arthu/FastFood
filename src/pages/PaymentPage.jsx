@@ -3,17 +3,21 @@ import { HeaderComponent } from "../components/HeaderComponent"
 import { PaymentContainer, PaymentContent, PaymentTypeContainer } from "../styles.css/payment.style"
 import { faCreditCard, faMoneyBill, faWallet } from "@fortawesome/free-solid-svg-icons"
 import { SubtotalComponent } from "../components/SubtotalCompoent"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { OrderContext } from "../contenxts/orderContenxt"
 import { getOrders, postOrder } from "../services/orders.service"
 import { useNavigate } from "react-router-dom"
 import { PedidosFooter } from "../styles.css/pedido.style"
-
+import { useReactToPrint } from "react-to-print"
 export const PaymentPage = () => {
     const { order, setOrder } = useContext(OrderContext);
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const [orderId, setOrderId] = useState();
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
     const cancel = () => {
         navigate('/');
     };
@@ -34,7 +38,8 @@ export const PaymentPage = () => {
         }
         await postOrder(orderData);
         navigate("/"),
-            setOrder([])
+            handlePrint()
+        setOrder([])
     };
 
     const PaymentType = ({ icon, name }) => {
@@ -82,8 +87,8 @@ export const PaymentPage = () => {
                         <h1>Pagamento</h1>
                     </div>
                     <div className="body">
-                        <div className="left">
-                            <h2>Resumo da compra</h2>
+                        <div ref={componentRef} className="left">
+                            <h2>Resumo da compra:</h2>
                             <SubtotalComponent allOrders={true} totalInline={true} className={'subtotal'} />
                             <div className="username">
                                 <div className="section">
