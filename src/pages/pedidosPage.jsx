@@ -18,6 +18,7 @@ import { SubtotalComponent } from "../components/SubtotalCompoent.jsx"
 import { getProducts } from "../services/products.service.js"
 import { OrderContext } from "../contenxts/orderContenxt.jsx"
 import { useNavigate } from "react-router-dom"
+import { LoadingComponent } from "../components/loadinfComponent.jsx"
 export const PedidosPage = () => {
     const [modalShow, setModalShow] = useState(false)
     const [products, setProducts] = useState([]);
@@ -55,70 +56,76 @@ export const PedidosPage = () => {
         };
         fetchProducts();
     }, [])
-    return (
-        <>
-            <HeaderComponent selectedButtonId={1} />
-            <PedidosContainer>
-                <PedidoContent>
-                    <PedidoContentHeader tabIndex={0} onKeyDown={handleSearch}>
-                        <h1>Seja bem vindo!</h1>
-                        <input onChange={(e) => setSearchTerm(e.target.value)} placeholder="O que você procura?" type="serarch" />
-                    </PedidoContentHeader>
-                    <PedidoSection >
-                        <h1>Categorias</h1>
-                        <p>Navegue por categoria</p>
-                        <div className="categorys">
-                            <Category>
-                                <img src={combo} alt="" />
-                                <h1>Combos</h1>
-                            </Category>
-                            <Category>
-                                <img src={batata} alt="" />
-                                <h1>Acompanhamentos</h1>
-                            </Category>
-                            <Category>
-                                <img src={coca} alt="" />
-                                <h1>Bebidas</h1>
-                            </Category>
-                            <Category>
-                                <img src={sobremesa} alt="" />
-                                <h1>Sobremesa</h1>
-                            </Category>
-                        </div>
-                    </PedidoSection>
-                    <PedidoSection >
-                        <h1>Produtos</h1>
-                        <p>Selecione um  produto para adicionar ao  seu  carinho</p>
-                        <div className="products">
-                            <div className="productsContent">
-                                {filteredList.filter((product) => product.bgColor === "red").map((product) => {
-                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
-                                })}
+
+    if (products.length > 0) {
+        return (
+            <>
+
+                <HeaderComponent selectedButtonId={1} />
+                <PedidosContainer>
+                    <PedidoContent>
+                        <PedidoContentHeader tabIndex={0} onKeyDown={handleSearch}>
+                            <h1>Seja bem vindo!</h1>
+                            <input onChange={(e) => setSearchTerm(e.target.value)} placeholder="O que você procura?" type="serarch" />
+                        </PedidoContentHeader>
+                        <PedidoSection >
+                            <h1>Categorias</h1>
+                            <p>Navegue por categoria</p>
+                            <div className="categorys">
+                                <Category>
+                                    <img src={combo} alt="" />
+                                    <h1>Combos</h1>
+                                </Category>
+                                <Category>
+                                    <img src={batata} alt="" />
+                                    <h1>Acompanhamentos</h1>
+                                </Category>
+                                <Category>
+                                    <img src={coca} alt="" />
+                                    <h1>Bebidas</h1>
+                                </Category>
+                                <Category>
+                                    <img src={sobremesa} alt="" />
+                                    <h1>Sobremesa</h1>
+                                </Category>
                             </div>
-                            <div className="productsContent">
-                                {filteredList.filter((product) => product.bgColor === "green").map((product) => {
-                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
-                                })}
+                        </PedidoSection>
+                        <PedidoSection >
+                            <h1>Produtos</h1>
+                            <p>Selecione um  produto para adicionar ao  seu  carinho</p>
+                            <div className="products">
+                                <div className="productsContent">
+                                    {filteredList.filter((product) => product.bgColor === "red").map((product) => {
+                                        return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    })}
+                                </div>
+                                <div className="productsContent">
+                                    {filteredList.filter((product) => product.bgColor === "green").map((product) => {
+                                        return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    })}
+                                </div>
+                                <div className="productsContent">
+                                    {filteredList.filter((product) => product.bgColor === "yellow").map((product) => {
+                                        return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
+                                    })}
+                                </div>
                             </div>
-                            <div className="productsContent">
-                                {filteredList.filter((product) => product.bgColor === "yellow").map((product) => {
-                                    return <ProductView selected={order.some(order => order.product_id === product.id) ? true : false} key={product.id} color={product.bgColor} functions={{ setSelectedProductId, setSelectedName, setSelectedPrice, setSelectedDescription }} data={product} setModalShow={setModalShow} />
-                                })}
-                            </div>
-                        </div>
-                    </PedidoSection>
-                    {order.length > 0 ? <SubtotalComponent allOrders={true} width={"80%"} /> : ""}
-                </PedidoContent>
-            </PedidosContainer>
-            <PedidosFooter abble={order.length > 0 ? true : false}>
-                <div>
-                    <button onClick={() => cancel()} disabled={order.length > 0 ? false : true} className="cancel">Cancelar</button>
-                    <button onClick={() => finishPedido()} disabled={order.length > 0 ? false : true} className="finish">Finalizar Pedido</button>
-                </div>
-            </PedidosFooter>
-            <PedidoModal productId={selectedProductId} description={selectedDescription} name={selectedName} price={selectedPrice} show={modalShow} setShow={setModalShow} />
-        </>
-    )
+                        </PedidoSection>
+                        {order.length > 0 ? <SubtotalComponent allOrders={true} width={"80%"} /> : ""}
+                    </PedidoContent>
+                </PedidosContainer>
+                <PedidosFooter abble={order.length > 0 ? true : false}>
+                    <div>
+                        <button onClick={() => cancel()} disabled={order.length > 0 ? false : true} className="cancel">Cancelar</button>
+                        <button onClick={() => finishPedido()} disabled={order.length > 0 ? false : true} className="finish">Finalizar Pedido</button>
+                    </div>
+                </PedidosFooter>
+                <PedidoModal productId={selectedProductId} description={selectedDescription} name={selectedName} price={selectedPrice} show={modalShow} setShow={setModalShow} />
+            </>
+        )
+    } else{
+        return<LoadingComponent/>
+    }
 }
 
 
