@@ -17,3 +17,9 @@ export  const updateOrder = async (data) => {
         return response.data
     }).catch((e)=>{console.log(e)})
 }
+
+export  const deleteOrderApi = async (id) => {
+    return api.delete(`/orders/${id}`).then((response)=>{
+        return response.data
+    }).catch((e)=>{console.log(e)})
+}

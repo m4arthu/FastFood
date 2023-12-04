@@ -13,9 +13,9 @@ export const PaymentPage = () => {
     const { order, setOrder } = useContext(OrderContext);
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
-    const [orderId,setOrderId] = useState();
+    const [orderId, setOrderId] = useState();
     const cancel = () => {
-        navigate('/pedidos');
+        navigate('/');
     };
     const sendOrder = async () => {
         const newOrders = order.map(order => {
@@ -33,7 +33,7 @@ export const PaymentPage = () => {
             products: newOrders
         }
         await postOrder(orderData);
-        navigate("/pedidos"),
+        navigate("/"),
             setOrder([])
     };
 
@@ -51,26 +51,26 @@ export const PaymentPage = () => {
         );
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const ordersData = await getOrders();
                 const encontrarUltimoID = () => {
                     if (ordersData.length === 0) {
-                      return null;
-                    } 
+                        return null;
+                    }
                     const ultimoID = ordersData.reduce((maxID, order) => {
-                      return order.id > maxID ? order.id : maxID;
+                        return order.id > maxID ? order.id : maxID;
                     }, ordersData[0].id);
                     return ultimoID;
-                  };
+                };
                 setOrderId(encontrarUltimoID())
             } catch (error) {
                 alert('Erro ao buscar produtos:', error);
             }
         };
         fetchOrders()
-    },[])
+    }, [])
 
     return (
         <>

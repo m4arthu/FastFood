@@ -6,7 +6,7 @@ export const HeaderButtons = ({ selectedButtonId }) => {
     const handleButtonClick = (buttonId) => {
         switch (buttonId) {
             case 1:
-                return navigate("/Pedidos")
+                return navigate("/")
             case 2:
              return navigate("/cozinha")
             case 3:
