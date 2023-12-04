@@ -11,7 +11,7 @@ function App() {
       <OrderContextProvider>
         <Routes>
           <Route path="/payment" Component={PaymentPage} />
-          <Route path="/pedidos" Component={PedidosPage} />
+          <Route path="/" Component={PedidosPage} />
           <Route path="/cozinha" Component={CozinhaPage} />
           <Route path="/retirada" Component={RetiradaPage} />
         </Routes>

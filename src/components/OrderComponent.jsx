@@ -2,13 +2,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX, faCheck} from '@fortawesome/free-solid-svg-icons';
 import { OrderContainer } from "../styles.css/order.style"
 import hamburguer from "../assets/images (10).png"
-import { updateOrder } from "../services/orders.service";
+import { deleteOrderApi, updateOrder } from "../services/orders.service";
 export const OrderComponent = ({ selected,data }) => {
     const  finishOrder = async() => {
          await updateOrder({
             orderId:data.id,
             isFinished:true
          })
+        window.location.reload()
+    }
+    const deleteOrder = async() => {
+        await deleteOrderApi(data.id)
         window.location.reload()
     }
     return (
@@ -25,7 +29,7 @@ export const OrderComponent = ({ selected,data }) => {
                 </div>
                 <div className="buttons">
                     <button className="cancel">
-                    <FontAwesomeIcon icon={faX} color="red"/>
+                    <FontAwesomeIcon onClick={()=>deleteOrder()} icon={faX} color="red"/>
                     </button>
                    {selected? "" : <button className="finish">
                     <FontAwesomeIcon onClick={()=>finishOrder()} icon={faCheck} color="green"/>
